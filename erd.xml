@@ -1,0 +1,53 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<mxGraphModel dx="790" dy="500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<root>
+<mxCell id="0"/>
+<mxCell id="1" parent="0"/>
+<!--  Users Table  -->
+<mxCell id="users" value="Users (user_id, username, email, phone, password_hash, role, created_at)" style="rounded=1;strokeColor=#000000;fillColor=#ADD8E6;" vertex="1" parent="1">
+<mxGeometry x="100" y="100" width="220" height="80" as="geometry"/>
+</mxCell>
+<!--  Devices Table  -->
+<mxCell id="devices" value="Devices (id_device, device_name, type, price, status, image, created_at)" style="rounded=1;strokeColor=#000000;fillColor=#ADD8E6;" vertex="1" parent="1">
+<mxGeometry x="400" y="100" width="250" height="80" as="geometry"/>
+</mxCell>
+<!--  Loan Records Table  -->
+<mxCell id="loan_records" value="Loan Records (loan_id, user_id, id_device, loan_date, due_date, status)" style="rounded=1;strokeColor=#000000;fillColor=#90EE90;" vertex="1" parent="1">
+<mxGeometry x="100" y="250" width="250" height="80" as="geometry"/>
+</mxCell>
+<!--  Return Records Table  -->
+<mxCell id="return_records" value="Return Records (return_id, user_id, id_device, loan_id, return_date)" style="rounded=1;strokeColor=#000000;fillColor=#90EE90;" vertex="1" parent="1">
+<mxGeometry x="400" y="250" width="250" height="80" as="geometry"/>
+</mxCell>
+<!--  Payments Table  -->
+<mxCell id="payments" value="Payments (payment_id, user_id, loan_id, amount, payment_method, payment_status, payment_date)" style="rounded=1;strokeColor=#000000;fillColor=#FFD700;" vertex="1" parent="1">
+<mxGeometry x="100" y="400" width="280" height="80" as="geometry"/>
+</mxCell>
+<!--  Reports Table  -->
+<mxCell id="reports" value="Reports (report_id, admin_id, report_type, generated_at, report_data)" style="rounded=1;strokeColor=#000000;fillColor=#FFA07A;" vertex="1" parent="1">
+<mxGeometry x="400" y="400" width="250" height="80" as="geometry"/>
+</mxCell>
+<!--  Relationships  -->
+<mxCell id="users-loan" edge="1" source="users" target="loan_records" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="devices-loan" edge="1" source="devices" target="loan_records" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="loan-return" edge="1" source="loan_records" target="return_records" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="users-return" edge="1" source="users" target="return_records" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="loan-payment" edge="1" source="loan_records" target="payments" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="users-payment" edge="1" source="users" target="payments" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+<mxCell id="users-reports" edge="1" source="users" target="reports" style="edgeStyle=orthogonalEdgeStyle;strokeColor=#000000;">
+<mxGeometry relative="1" as="geometry"/>
+</mxCell>
+</root>
+</mxGraphModel>
