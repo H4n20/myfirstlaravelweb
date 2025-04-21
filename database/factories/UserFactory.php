@@ -19,6 +19,13 @@ class UserFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'phone' => fake()->phoneNumber(),
+            'province_id' => fake()->state(),
+            'district_id' => fake()->city(),
+            'ward_id' => fake()->streetName(),
+            'address' => fake()->streetAddress(),
+            'birthday' => fake()->date(),
+            'image' => fake()->imageUrl(100, 100, 'people'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -33,7 +40,7 @@ class UserFactory extends Factory
      */
     public function unverified()
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }
