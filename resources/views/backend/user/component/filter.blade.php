@@ -1,7 +1,7 @@
 <div class="perpage">
     <div class="row align-items-center">
         <div class="col-md-2">
-            <a href="#" class="btn btn-primary w-100" style="font-size:15px;">Create User <i class="fa fa-plus"></i></a>
+            <a href="{{ route('user.create') }}" class="btn btn-primary w-100" style="font-size:15px;">Create User <i class="fa fa-plus"></i></a>
         </div>
         <div class="col-md-4"></div>
         <div class="col-md-2">

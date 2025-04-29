@@ -26,9 +26,20 @@ Route::get('dashboard/index', [DashboardController::class, 'index'])->name('dash
     ->middleware('admin');
 
 // user routes
-Route::get('user/index', [UserController::class, 'index'])->name('user.index')
-    ->middleware('admin');
-
+Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
+    Route::get('index', [UserController::class, 'index'])->name('index')
+        ->middleware('admin');
+    Route::get('create', [UserController::class, 'create'])->name('create')
+        ->middleware('admin');
+    Route::post('store', [UserController::class, 'store'])->name('store')
+        ->middleware('admin');
+    // Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit')
+    //     ->middleware('admin');
+    // Route::post('update/{id}', [UserController::class, 'update'])->name('update')
+    //     ->middleware('admin');
+    // Route::get('delete/{id}', [UserController::class, 'delete'])->name('delete')
+    //     ->middleware('admin');
+});
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')
     ->middleware('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');
