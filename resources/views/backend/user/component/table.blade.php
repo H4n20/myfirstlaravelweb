@@ -42,15 +42,22 @@
                     <span class="label label-primary" style="font-size: 15px;">Active</span>
                 </td>
                 <td class="text-center">
-                    <a href="#" class="btn btn-success" style="font-size: 15px;">Edit <i class="fa fa-edit"></i></a>
-                    <a href="#" class="btn btn-danger" style="font-size: 15px;">Delete <i class="fa fa-trash"></i></a>    
+                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success" style="font-size: 15px;">Edit <i class="fa fa-edit"></i></a>
+                    <form id="delete-form-{{ $user->id }}" action="{{ route('user.delete', $user->id) }}" method="GET" style="display: none;">
+                        @csrf
+                    </form>
+                    <a href="javascript:void(0)" 
+                       onclick="if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }" 
+                       class="btn btn-danger" 
+                       style="font-size: 15px;">
+                        Delete <i class="fa fa-trash"></i>
+                    </a>
                 </td>
             </tr>
             @endforeach
         @endif
     </tbody>
 </table>
-
 <div class="text-center">
     {{ $users->links('pagination::bootstrap-4') }}
 </div>

@@ -33,13 +33,17 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         ->middleware('admin');
     Route::post('store', [UserController::class, 'store'])->name('store')
         ->middleware('admin');
-    // Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit')
-    //     ->middleware('admin');
-    // Route::post('update/{id}', [UserController::class, 'update'])->name('update')
-    //     ->middleware('admin');
-    // Route::get('delete/{id}', [UserController::class, 'delete'])->name('delete')
-    //     ->middleware('admin');
+    Route::get('{id}/edit', [UserController::class, 'edit'])
+        ->where(['id' => '[0-9]+'])->name('edit')
+        ->middleware('admin');
+    Route::post('{id}/update', [UserController::class, 'update'])
+        ->where(['id' => '[0-9]+'])->name('update')
+        ->middleware('admin');
+    Route::get('{id}/delete', [UserController::class, 'delete'])
+        ->where(['id' => '[0-9]+'])->name('delete')
+        ->middleware('admin');
 });
+
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')
     ->middleware('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');

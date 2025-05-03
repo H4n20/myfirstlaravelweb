@@ -8,7 +8,11 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('user.store') }}" method="POST">
+
+@php
+    $url = ($config['method'] == 'create') ? route('user.store') : route('user.update', $user->id);
+@endphp
+<form action="{{ $url }}" method="POST">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -31,7 +35,7 @@
                                     <label for="name" class="control-label">Full Name
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" placeholder="Enter full name" autocomplete="off" >
+                                    <input type="text" name="name" value="{{ old('name', ($user->name) ?? '' ) }}" class="form-control" placeholder="Enter full name" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -39,18 +43,28 @@
                                     <label for="email" class="control-label">Email
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="email" value="{{ old('email') }}" class="form-control" placeholder="Enter email" autocomplete="off" >
+                                    <input type="text" name="email" value="{{ old('email', ($user->email) ?? '' ) }}" class="form-control" placeholder="Enter email" autocomplete="off" >
                                 </div>
                             </div>
+                            @php
+                                $userCatalogue = [
+                                    'Select group',
+                                    'Administrators',
+                                    'Users'
+                                ];
+                            @endphp
                             <div class="col-lg-6">
                                 <div class="form-row">
                                     <label for="" class="control-label">Groups
                                         <span class="text-danger">*</span></label>
                                     </label>
                                     <select name="user_catalogue_id" class="form-control" >
-                                        <option value="0" selected="selected">Select group</option>
-                                        <option value="1">Administrators</option>
-                                        <option value="2">Users</option>
+                                        @foreach ($userCatalogue as $key => $value)
+                                        <option {{ $key == old('user_catalogue_id', 
+                                        (isset($user->user_catalogue_id)) ?
+                                        $user->user_catalogue_id : '') ? 'selected' : ''}}
+                                        value="{{ $key }}">{{ $value }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -59,9 +73,10 @@
                                     <label for="Birthday" class="control-label">Birthday
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="birthday" class="form-control" value="{{ old('birthday') }}" placeholder="yyyy-MM-dd" autocomplete="off" >
+                                    <input type="text" name="birthday" class="form-control" value="{{ old('birthday', ($user->birthday) ?? '' ) }}" placeholder="yyyy-MM-dd" autocomplete="off" >
                                 </div>
                             </div>
+                            @if($config['method'] == 'create')
                             <div class="col-md-6">
                                 <div class="form-row">
                                     <label for="password" class="control-label">Password
@@ -78,6 +93,7 @@
                                     <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Enter password confirmation" autocomplete="off" >
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                 </class>
@@ -103,7 +119,7 @@
                                     <label for="phone" class="control-label">Phone Number
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="phone" name="phone" value="{{ old('phone') }}" class="form-control" placeholder="Enter phone number" autocomplete="off" 
+                                    <input type="phone" name="phone" value="{{ old('phone', ($user->phone) ?? '' ) }}" class="form-control" placeholder="Enter phone number" autocomplete="off" 
                                     >
                                 </div>
                             </div>
@@ -112,7 +128,7 @@
                                     <label for="province_id" class="control-label">Province/City
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="province_id" value="{{ old('province_id') }}" class="form-control" placeholder="Enter province/city" autocomplete="off" >
+                                    <input type="text" name="province_id" value="{{ old('province_id', ($user->province_id) ?? '' ) }}" class="form-control" placeholder="Enter province/city" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -120,7 +136,7 @@
                                     <label for="district_id" class="control-label">District
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="district_id" value="{{ old('district_id') }}" class="form-control" placeholder="Enter district" autocomplete="off" >
+                                    <input type="text" name="district_id" value="{{ old('district_id', ($user->district_id) ?? '' ) }}" class="form-control" placeholder="Enter district" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -128,7 +144,7 @@
                                     <label for="ward_id" class="control-label">Ward
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="ward_id" value="{{ old('ward_id') }}" class="form-control" placeholder="Enter ward" autocomplete="off" >
+                                    <input type="text" name="ward_id" value="{{ old('ward_id', ($user->ward_id) ?? '' ) }}" class="form-control" placeholder="Enter ward" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -136,13 +152,13 @@
                                     <label for="address" class="control-label">Address
                                         <span class="text-danger">*</span></label>
                                     </label>
-                                    <input type="text" name="address" value="{{ old('address') }}" class="form-control" placeholder="Enter address" autocomplete="off">
+                                    <input type="text" name="address" value="{{ old('address', ($user->address) ?? '' ) }}" class="form-control" placeholder="Enter address" autocomplete="off">
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-row">
                                     <label for="address" class="control-label">Note</label>
-                                    <input type="text" name="note" value="{{ old('note') }}" class="form-control" placeholder="" autocomplete="off">
+                                    <input type="text" name="note" value="{{ old('note', ($user->note) ?? '' ) }}" class="form-control" placeholder="" autocomplete="off">
                                 </div>
                             </div>
                         </div>
@@ -151,6 +167,6 @@
             </div>
         </div>
         <div class="text-right">
-            <button type="submit" class="btn btn-primary" style="margin:20px;">Create User</button>
+            <button type="submit" class="btn btn-primary" style="margin:20px;">Save</button>
         </div>
 </form>
