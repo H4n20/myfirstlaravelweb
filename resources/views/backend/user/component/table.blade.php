@@ -25,7 +25,15 @@
                 <td>
                     <div><strong>Full Name</strong>: {{ $user->name }}</div>
                     <div><strong>Birthday</strong>: {{ $user->birthday }}</div>
-                    <div><strong>Role</strong>: Admin</div>
+                    <div><strong>Role</strong>: 
+                        @if ($user->role == 'admin')
+                            Administrators
+                        @elseif ($user->role == 'user')
+                            Users
+                        @else
+                            Unknown
+                        @endif
+                    </div>
                     <div><strong>Created At</strong>: {{ $user->created_at }}</div>
                 </td>
                 <td>
@@ -42,9 +50,13 @@
                     <span class="label label-primary" style="font-size: 15px;">Active</span>
                 </td>
                 <td class="text-center">
-                    <a href="{{ route('user.edit', $user->id) }}" class="btn btn-success" style="font-size: 15px;">Edit <i class="fa fa-edit"></i></a>
+                    <a href="{{ route('user.edit', $user->id) }}" 
+                        class="btn btn-success" 
+                        style="font-size: 15px;">Edit 
+                        <i class="fa fa-edit"></i>
+                    </a>
                     <form id="delete-form-{{ $user->id }}" action="{{ route('user.delete', $user->id) }}" method="GET" style="display: none;">
-                        @csrf
+                    @csrf
                     </form>
                     <a href="javascript:void(0)" 
                        onclick="if (confirm('Are you sure you want to delete this user?')) { document.getElementById('delete-form-{{ $user->id }}').submit(); }" 

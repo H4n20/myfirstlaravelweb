@@ -14,10 +14,26 @@ class UserController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $query = User::query();
+        if ($request->filled('user_catalogue_id') && $request->user_catalogue_id != 0) {
+            $role = $request->user_catalogue_id == 1 ? 'admin' : 'user'; // 1: admin, 2: user
+            $query->where('role', $role);
+        }
+        if ($request->filled('keyword')) {
+            $query = $query->where('name', 'like', '%' . $request->keyword . '%')
+                ->orWhere('email', 'like', '%' . $request->keyword . '%')
+                ->orWhere('phone', 'like', '%' . $request->keyword . '%')
+                ->orWhere('address', 'like', '%' . $request->keyword . '%')
+                ->orWhere('birthday', 'like', '%' . $request->keyword . '%')
+                ->orWhere('province_id', 'like', '%' . $request->keyword . '%')
+                ->orWhere('district_id', 'like', '%' . $request->keyword . '%')
+                ->orWhere('ward_id', 'like', '%' . $request->keyword . '%');
+        }
+
         $config['seo'] = config('apps.user');
-        $users = User::paginate(20);
+        $users = $query->paginate(20);
         $template = 'backend.user.index';
         return view(
             'backend.dashboard.layout',
