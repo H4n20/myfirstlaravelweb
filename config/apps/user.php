@@ -9,7 +9,5 @@ return [
         'title' => 'Create User',
         'table' => 'Create User',
     ],
-    'delete' => [
-        'title' => 'Delete User',
-    ],
+
 ];

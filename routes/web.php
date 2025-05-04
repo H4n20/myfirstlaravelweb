@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
-use App\Http\Middleware\AuthenticateMiddleware;
+use App\Http\Controllers\Backend\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +44,26 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         ->middleware('admin');
 });
 
+// prodyuct routes
+Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
+    Route::get('index', [ProductController::class, 'index'])->name('index')
+        ->middleware('admin');
+    Route::get('create', [ProductController::class, 'create'])->name('create')
+        ->middleware('admin');
+    Route::post('store', [ProductController::class, 'store'])->name('store')
+        ->middleware('admin');
+    Route::get('{id}/edit', [ProductController::class, 'edit'])
+        ->where(['id' => '[0-9]+'])->name('edit')
+        ->middleware('admin');
+    Route::post('{id}/update', [ProductController::class, 'update'])
+        ->where(['id' => '[0-9]+'])->name('update')
+        ->middleware('admin');
+    Route::get('{id}/delete', [ProductController::class, 'delete'])
+        ->where(['id' => '[0-9]+'])->name('delete')
+        ->middleware('admin');
+});
+
+// auth routes
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')
     ->middleware('login');
 Route::get('logout', [AuthController::class, 'logout'])->name('auth.logout');

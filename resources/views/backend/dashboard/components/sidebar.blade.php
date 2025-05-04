@@ -21,10 +21,17 @@
                 </div>
             </li>
             <li class="active">
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">User Management</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">User Management</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="index.html">Groups</a></li>
                     <li><a href="{{ route('user.index') }}">Users</a></li>
+                </ul>
+            </li>
+            <li class="active">
+                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">Product Management</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="index.html">Groups</a></li>
+                    <li><a href="{{ route('product.index') }}">Products</a></li>
                 </ul>
             </li>
         </ul>

@@ -14,6 +14,7 @@ class UserController extends Controller
 
     }
 
+    // list user
     public function index(Request $request)
     {
         $query = User::query();
@@ -104,4 +105,5 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('user.index')->with('success', 'User deleted successfully!');
     }
+
 }
