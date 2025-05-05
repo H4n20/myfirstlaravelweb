@@ -6,7 +6,7 @@ use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ProductController;
-
+use App\Http\Controllers\Frontend\StoreController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
         ->middleware('admin');
 });
 
-// prodyuct routes
+// product routes
 Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
     Route::get('index', [ProductController::class, 'index'])->name('index')
         ->middleware('admin');
@@ -62,6 +62,11 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function () {
         ->where(['id' => '[0-9]+'])->name('delete')
         ->middleware('admin');
 });
+
+
+// frontend routes
+
+Route::get('/store', [StoreController::class, 'index'])->name('store.index');
 
 // auth routes
 Route::get('admin', [AuthController::class, 'index'])->name('auth.admin')

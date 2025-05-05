@@ -46,25 +46,16 @@
                                     <input type="text" name="email" value="{{ old('email', ($user->email) ?? '' ) }}" class="form-control" placeholder="Enter email" autocomplete="off" >
                                 </div>
                             </div>
-                            @php
-                                $userCatalogue = [
-                                    'Select group',
-                                    'Administrators',
-                                    'Users'
-                                ];
-                            @endphp
+=
                             <div class="col-lg-6">
                                 <div class="form-row">
-                                    <label for="" class="control-label">Groups
-                                        <span class="text-danger">*</span></label>
+                                    <label for="role" class="control-label">Groups
+                                        <span class="text-danger">*</span>
                                     </label>
-                                    <select name="user_catalogue_id" class="form-control" >
-                                        @foreach ($userCatalogue as $key => $value)
-                                        <option {{ $key == old('user_catalogue_id', 
-                                        (isset($user->user_catalogue_id)) ?
-                                        $user->user_catalogue_id : '') ? 'selected' : ''}}
-                                        value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
+                                    <select name="role" class="form-control">
+                                        <option value="">Select Group</option>
+                                        <option value="admin" {{ old('role', ($user->role ?? '')) == 'admin' ? 'selected' : '' }}>Administrators</option>
+                                        <option value="user" {{ old('role', ($user->role ?? '')) == 'user' ? 'selected' : '' }}>Users</option>
                                     </select>
                                 </div>
                             </div>

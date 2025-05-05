@@ -27,7 +27,7 @@ class StoreUserRequest extends FormRequest
         return [
             'email' => 'required|email|unique:users,email,',
             'name' => 'required|string|max:255',
-            'user_catalogue_id' => 'gt:0',
+            'role' => 'requiredin:admin,user',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|same:password',
             'phone' => 'required|string|max:255',
@@ -45,7 +45,7 @@ class StoreUserRequest extends FormRequest
             'email.email' => 'Email must be a valid email address',
             'email.unique' => 'Email already exists',
             'fullname.required' => 'Fullname is required',
-            'user_catalogue_id.required' => 'User group is required',
+            'role.required' => 'Role is required',
             'password.required' => 'Password is required',
             'password.min' => 'Password must be at least 8 characters',
             'password.confirmed' => 'Password confirmation does not match',

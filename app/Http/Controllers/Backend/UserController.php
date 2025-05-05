@@ -18,9 +18,8 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $query = User::query();
-        if ($request->filled('user_catalogue_id') && $request->user_catalogue_id != 0) {
-            $role = $request->user_catalogue_id == 1 ? 'admin' : 'user'; // 1: admin, 2: user
-            $query->where('role', $role);
+        if ($request->filled('role')) {
+            $query->where('role', $request->role);
         }
         if ($request->filled('keyword')) {
             $query = $query->where('name', 'like', '%' . $request->keyword . '%')
@@ -59,6 +58,7 @@ class UserController extends Controller
         $user = new User();
         $user->email = $request->email;
         $user->name = $request->name;
+        $user->role = $request->role;
         $user->password = Hash::make($request->password);
         $user->birthday = $request->birthday;
         $user->phone = $request->phone;
@@ -89,6 +89,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->email = $request->email;
         $user->name = $request->name;
+        $user->role = $request->role;
         $user->birthday = $request->birthday;
         $user->phone = $request->phone;
         $user->province_id = $request->province_id;
